@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+Новости - {{ category }}
+{% endblock title %}
+
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+{% block content %}
+
+{% for item in news %}
+<div class="card mb-3">
+    <div class="card-header">
+        {{ item.category }}
+    </div>
+    <div class="card-body">
+        <div class="media">
+            {% if item.photo %}
+            <img src="{{ item.photo.url }}" align="left" hspace="20"
+                 width="200" height="300" float="left" class="mr-3">
+            {% else %}
+            <img src="https://picsum.photos/200/300" align="left"
+                 hspace="20" vspace="20" class="mr-3">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="card-title">
+                    {{ item.title }}
+                </h5>
+                <p class="card-text">
+                    {{ item.content|linebreaks|truncatewords:50 }}
+                </p>
+                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        Опубликовано {{ item.created_at|timesince }} назад
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
+

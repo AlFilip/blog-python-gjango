@@ -21,6 +21,7 @@
             {{ item.category.title }}</a>
     </div>
     <div class="card-body">
+        {{ mixin_prop }}
         <div class="media">
             {% if item.photo %}
             <img src="{{ item.photo.url }}" align="left" hspace="20"

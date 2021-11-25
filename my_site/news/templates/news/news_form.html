@@ -1,10 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+Добавление новости
+{% endblock title %}
+
+{% block sidebar %}
+
+{% include 'inc/_sidebar.html' %}
+
+
+{% endblock sidebar %}
+
+{% block content %}
+
+<h1> Добавление новости </h1>
+
+<form action="{%url 'add_news'%}" method="post">
+    {% csrf_token %}
+
+
+    {% comment %}
+    {{ form.non_field.errors }}
+    <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Название</label>
+        {{ form.title }}
+        <div class="invalid-feedback">
+            {{ forms.title.errors }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.content.id_for_label }}">Содержание</label>
+        {{ form.content }}
+        <div class="invalid-feedback">
+            {{ forms.content.errors }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Категория</label>
+        {{ form.category }}
+        <div class="invalid-feedback">
+            {{ forms.category.errors }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.is_published.id_for_label }}">Опубликовано</label>
+        {{ form.is_published }}
+        <div class="invalid-feedback">
+            {{ forms.is_published.errors }}
+        </div>
+    </div>
+
+
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        <div class="invalid-feedback">
+            {{ field.errors }}
+        </div>
+    </div>
+    {% endfor %}
+    {% endcomment %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-block">Добавить Новость
+    </button>
+</form>
+
+{% endblock content %}
+
+<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Адрес электронной почты</label>
+        <input type="email" class="form-control" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">Мы никогда никому не
+            передадим Вашу электронную почту.</small>
+    </div>
