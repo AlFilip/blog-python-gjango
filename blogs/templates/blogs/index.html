@@ -1,0 +1,16 @@
+{% block content %}
+
+<p>Posts:</p>
+
+<ul>
+    {% for post in blogs %}
+    <li><p>{{ post }} <a href="{% url 'blogs:edit_post' post.id %}"> Edit post</a></p></li>
+    {% empty %}
+    <li>No post has been added yet</li>
+    {% endfor %}
+</ul>
+
+
+<a href="{% url 'blogs:new_post' %}">Add new post</a>
+
+{% endblock content %}
